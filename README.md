@@ -1,13 +1,14 @@
 # 대전 행정정보 MCP (daejeon-mcp)
 
 > 대전 자치구의 공개 행정문서를 **환각 0 · 원문 근거** 원칙으로 서빙하는 공개 MCP 서버.
-> 현재 커버리지: **대전 중구** (서구 온보딩 진행 중 — 완료 시 자동 확대)
+> 현재 커버리지: **대전 중구 · 서구** (2개 자치구) + **전국 자치법규 161k·국가법령 5.6k**
 
 누구나 MCP 클라이언트로 바로 연결해 쓸 수 있습니다. 가입·키 발급·비용 없음.
 
 ```
 https://djmcp.up.railway.app/junggu/mcp     ← 대전 중구
-https://djmcp.up.railway.app/all/mcp        ← 통합(현재 중구와 동일)
+https://djmcp.up.railway.app/seogu/mcp      ← 대전 서구
+https://djmcp.up.railway.app/all/mcp        ← 통합(자치구 교차검색 · 기관 태깅)
 ```
 
 **→ [지금 붙여보기: 클라이언트별 연결 가이드](connect/)**
@@ -18,14 +19,15 @@ https://djmcp.up.railway.app/all/mcp        ← 통합(현재 중구와 동일)
 
 ## 무엇을 할 수 있나
 
-15개 도구로 대전 중구의 공개 행정정보를 질의합니다:
+17개 도구로 대전 자치구의 공개 행정정보를 질의합니다:
 
 | 축 | 내용 | 도구 예시 |
 |---|---|---|
-| 문서 축 | 구청 홈페이지 공개 문서 5만여 건(고시공고·시책·보도 등) | `search_documents` `get_document` `topic_timeline` |
+| 문서 축 | 구청 홈페이지 공개 문서 7.8만여 건(중구 5.5만·서구 2.3만) | `search_documents` `get_document` `topic_timeline` |
 | 예산 축 | 세출예산서 계층 트리(부서→정책→단위→세부사업, 증감 분해) | `query_budget` `get_budget_page` |
-| 재정 정형 축 | 지방재정365 확정 재정데이터(편성·집행, 15개 연도) | `query_finance` `list_finance` |
-| 자치법규 축 | 법제처 국가법령정보 연동 자치법규 472건(일일 증분) | `search_ordinance` `get_ordinance` |
+| 재정 정형 축 | 지방재정365 확정 재정데이터(자치구별 편성·집행 이력) | `query_finance` `list_finance` |
+| 자치법규 축 | 소속 구 자치법규(중구 472·서구 568, 일일 증분) | `search_ordinance` `get_ordinance` |
+| 전국 법규 축 | **전국 자치법규 161,602건 + 국가법령 5,599건** — 타 지자체 조례 비교·상위법 확인 | `search_law_nationwide` `get_law_nationwide` |
 
 ## 답변 3원칙 — 서비스 계약
 
@@ -64,7 +66,7 @@ https://djmcp.up.railway.app/all/mcp        ← 통합(현재 중구와 동일)
 
 ## 출처·라이선스
 
-- 구청 공개 자료(문서 축): 대전광역시 중구청이 [공공누리(KOGL)](https://www.kogl.or.kr) 기준으로
+- 구청 공개 자료(문서 축): 각 구청(중구·서구)이 [공공누리(KOGL)](https://www.kogl.or.kr) 기준으로
   개방한 공공저작물 — 문서별 유형 표시를 따르며, 인용 시 출처(기관명·URL)가 항상 동반됩니다.
 - 재정 정형 축: [지방재정365](https://lofin365.go.kr) 공개 재정데이터 — 모든 수치 인용에
   [기관·지방재정365·상품명·연도] 출처 명시.
