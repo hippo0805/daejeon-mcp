@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>주민참여예산 19년 — 대전 중구 데이터로 읽기</title>
+<style>
+  :root {
+    color-scheme: light dark;
+    --surface-1: #fcfcfb; --surface-2: #f3f2ef;
+    --text-primary: #0b0b0b; --text-secondary: #52514e; --text-muted: #8a8880;
+    --series-1: #2a78d6; --grid: #e3e2dd; --border: #dedcd5; --accent: #166534;
+    --band: rgba(42,120,214,.06);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --surface-1: #1a1a19; --surface-2: #232322;
+      --text-primary: #ffffff; --text-secondary: #c3c2b7; --text-muted: #8a897f;
+      --series-1: #3987e5; --grid: #333330; --border: #3a3936; --accent: #4ade80;
+      --band: rgba(57,135,229,.10);
+    }
+  }
+  * { box-sizing: border-box; margin: 0; }
+  body { background: var(--surface-1); color: var(--text-primary);
+         font-family: "Apple SD Gothic Neo", Pretendard, "Noto Sans KR", sans-serif;
+         line-height: 1.6; padding: 44px 20px 90px; word-break: keep-all; }
+  .wrap { max-width: 860px; margin: 0 auto; }
+  .eyebrow { font-size: 13px; font-weight: 700; letter-spacing: .08em; color: var(--text-muted);
+             text-transform: uppercase; margin-bottom: 10px; }
+  h1 { font-size: 30px; letter-spacing: -1px; line-height: 1.25; }
+  .sub { color: var(--text-secondary); margin: 12px 0 30px; font-size: 15.5px; max-width: 64ch; }
+  .sub b { color: var(--text-primary); }
+  .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 10px;
+           margin-bottom: 36px; }
+  .tile { background: var(--surface-2); border: 1px solid var(--border); border-radius: 10px;
+          padding: 16px 18px 13px; }
+  .tile .v { font-size: 27px; font-weight: 800; letter-spacing: -1px; font-variant-numeric: tabular-nums; }
+  .tile .v small { font-size: 14px; font-weight: 500; color: var(--text-secondary); }
+  .tile .k { font-size: 13px; color: var(--text-secondary); margin-top: 3px; }
+  h2 { font-size: 18px; margin: 40px 0 6px; letter-spacing: -0.3px; }
+  .chart-sub { font-size: 13px; color: var(--text-muted); margin-bottom: 16px; }
+  .chart-card { background: var(--surface-2); border: 1px solid var(--border); border-radius: 12px;
+                padding: 22px 24px 12px; overflow-x: auto; }
+  svg text { font-family: inherit; }
+  .bar { fill: var(--series-1); }
+  .grid-line { stroke: var(--grid); stroke-width: 1; }
+  .axis { fill: var(--text-muted); font-size: 11px; }
+  .era { fill: var(--band); }
+  .era-lbl { fill: var(--text-muted); font-size: 11.5px; font-weight: 700; }
+  #tip { position: fixed; pointer-events: none; background: var(--surface-1);
+         border: 1px solid var(--border); border-radius: 8px; padding: 8px 12px; font-size: 13px;
+         box-shadow: 0 4px 16px rgba(0,0,0,.18); opacity: 0; transition: opacity .12s; z-index: 9; }
+  .cycle { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 8px; }
+  .cstep { background: var(--surface-2); border: 1px solid var(--border); border-radius: 10px;
+           padding: 13px 14px; }
+  .cstep .m { font-size: 12px; font-weight: 800; color: var(--accent); }
+  .cstep .t { font-size: 13.5px; font-weight: 700; margin-top: 3px; line-height: 1.35; }
+  .cstep .d { font-size: 12px; color: var(--text-muted); margin-top: 3px; }
+  .cases { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px; }
+  .case { background: var(--surface-2); border: 1px solid var(--border); border-radius: 10px;
+          padding: 15px 17px; font-size: 13.5px; }
+  .case b { display: block; margin-bottom: 4px; font-size: 14px; }
+  .case .src { color: var(--text-muted); font-size: 11.5px; margin-top: 7px; }
+  .fact { border-left: 3px solid var(--accent); background: var(--surface-2);
+          padding: 14px 18px; border-radius: 0 10px 10px 0; margin: 26px 0; font-size: 15px; }
+  .fact b { color: var(--accent); }
+  .method { font-size: 13px; color: var(--text-muted); margin-top: 34px; line-height: 1.7;
+            border-top: 1px solid var(--border); padding-top: 18px; }
+  .cta { margin-top: 30px; background: var(--surface-2); border: 1px solid var(--border);
+         border-radius: 12px; padding: 20px 22px; }
+  .cta b { display: block; margin-bottom: 6px; font-size: 15.5px; }
+  .cta code { background: var(--surface-1); border: 1px solid var(--border); border-radius: 6px;
+              padding: 2px 8px; font-size: 12.5px; }
+  .cta .q { color: var(--text-secondary); font-size: 13.5px; margin-top: 8px; }
+  a { color: var(--series-1); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="eyebrow">대전 행정정보 MCP · 데이터 스토리 #2 · 대전 중구</div>
+  <h1>주민참여예산 19년 —<br>주민의 제안은 어디까지 갔나</h1>
+  <p class="sub">대전 중구가 공개한 행정문서 55,411건 속에는 <b>2007년부터 이어진 주민참여예산의
+  전체 기록</b>이 남아 있습니다. 흩어진 공고·회의·결과·예산서를 한 줄로 이으면, 제도가
+  어떻게 자랐고 주민 제안이 어떻게 실물이 되는지가 보입니다.</p>
+
+  <div class="tiles">
+    <div class="tile"><div class="v">19<small>년</small></div><div class="k">기록 연속 (2007 → 2026)</div></div>
+    <div class="tile"><div class="v">107<small>건</small></div><div class="k">관련 공식 문서 (공고·결과·현황·보도)</div></div>
+    <div class="tile"><div class="v">×4.0</div><div class="k">제도 운영예산 (2023 474만 → 2025~ 1,878만원)</div></div>
+  </div>
+
+  <h2>활동의 궤적 — 연도별 관련 문서 수</h2>
+  <div class="chart-sub">제목에 '주민참여예산'이 들어간 공식 문서 · 제도 형태의 3기 구분은 문서 유형 변화 기준</div>
+  <div class="chart-card">
+    <svg id="chart" width="800" height="330" viewBox="0 0 800 330" role="img"
+         aria-label="연도별 주민참여예산 관련 문서 수 막대 차트, 제도 3기 구분 배경"></svg>
+  </div>
+
+  <div class="fact">
+    형태가 세 번 바뀌었습니다 — <b>건의 반영기</b>(2008~2012, 주민 건의사항을 예산에 반영해
+    내역 공개) → <b>공모·실시결과기</b>(2013~2019, 연례 공모와 결과 공표) → <b>사업 공개기</b>
+    (2020~, 선정 사업별 예산·추진 현황을 표로 공개). 공개의 해상도가 계속 높아져 왔습니다.
+  </div>
+
+  <h2>제도의 오늘 — 2026년 한 사이클 (실제 문서 날짜)</h2>
+  <div class="chart-sub">2027년 예산 편성을 위한 2026년 운영 — 각 단계가 실제 공고·보도로 확인됨</div>
+  <div class="cycle">
+    <div class="cstep"><div class="m">3월</div><div class="t">운영계획 공고</div><div class="d">고시 3.13</div></div>
+    <div class="cstep"><div class="m">3~7월</div><div class="t">참여예산위원회 1~3차</div><div class="d">보도 3.3 · 7.27</div></div>
+    <div class="cstep"><div class="m">4월</div><div class="t">제안사업 공모</div><div class="d">고시 4.1</div></div>
+    <div class="cstep"><div class="m">10월</div><div class="t">실시 결과 공표</div><div class="d">전년 예시 10.14</div></div>
+    <div class="cstep"><div class="m">익년 1월~</div><div class="t">선정사업 추진현황 공개</div><div class="d">1차→최종 (1.14)</div></div>
+  </div>
+
+  <h2>제안이 실물이 된 순간들 — 기록으로 남은 사례</h2>
+  <div class="cases">
+    <div class="case"><b>어린이보호구역 옐로카펫 33개소</b>초등학교 횡단보도에 설치 —
+      2020년 선정, 사업비 5,000만원<div class="src">근거: 2020 선정사업 추진 현황(시비 11건·총 3.8억 표)</div></div>
+    <div class="case"><b>보문로 밝은거리 조성</b>보문오거리~부사네거리 가로등 개량 22등·보행등 44등
+      <div class="src">근거: 2020 선정사업 추진 현황 · 사업비 4,000만원</div></div>
+    <div class="case"><b>태평2동 야간 안전 도로표지병</b>2026년 4월 설치 완료 —
+      제안부터 완료 보도까지 문서로 추적됨<div class="src">근거: 보도자료 2026-04-09</div></div>
+    <div class="case"><b>동네가 직접 고른 8개 동 사업</b>2021년 예산서에 목동·문창동·석교동·부사동 등
+      동 단위 사업이 항목으로 명시(1,000만~4,000만원)<div class="src">근거: 2021 본예산 세출예산서</div></div>
+  </div>
+
+  <div class="fact">
+    선정된 사업은 예산서에서 '주민참여예산'이라는 이름을 달지 않고 <b>각 부서의 사업으로
+    편성</b>되는 경우가 많습니다 — 예산서만 보면 사라진 듯 보이지만, <b>'운영현황' 채널의
+    사업별 표</b>(2020년 이후, 부서·사업비·추진상황)에 살아 있습니다. 흩어진 문서를 연결해야
+    보이는 사실입니다.
+  </div>
+
+  <div class="cta">
+    <b>이 기록, 직접 물어볼 수 있습니다</b>
+    AI 클라이언트(Claude 등)의 MCP 설정에 <code>https://djmcp.up.railway.app/junggu/mcp</code> 를
+    등록하면 위의 모든 문서·예산을 근거 인용과 함께 질의할 수 있습니다 — 무료·가입 없음.
+    <div class="q">예: "2020년 주민참여예산 선정 사업 목록과 추진 결과 보여줘" ·
+    연결 가이드: <a href="https://github.com/hippo0805/daejeon-mcp">github.com/hippo0805/daejeon-mcp</a></div>
+  </div>
+
+  <p class="method"><b>방법</b> — 대전 중구 공개 행정문서 55,411건(2026-08 기준) 중 제목에
+  '주민참여예산'이 포함된 107건(고시공고·보도자료·운영현황 채널)과 세출예산서 구조화
+  데이터(2008~2026)를 교차했습니다. 3기 구분은 '운영현황' 채널 문서 유형의 변화(건의 반영
+  내역→실시결과→선정사업 추진현황 표)를 기준으로 했습니다. 연도별 선정 사업 수·총액의 정밀
+  집계는 연도별 표 서식 차이로 이 페이지에서는 다루지 않았습니다(개별 표는 MCP로 조회 가능).
+  원 출처: 대전 중구청 홈페이지(공공누리). 문서·방법론: CC BY 4.0.</p>
+</div>
+<div id="tip"></div>
+
+<script>
+const docs = {2007:1,2008:1,2009:0,2010:2,2011:0,2012:3,2013:0,2014:3,2015:1,2016:1,2017:3,2018:2,2019:6,2020:8,2021:14,2022:18,2023:9,2024:15,2025:14,2026:7};
+const years = Object.keys(docs).map(Number);
+const maxV = 20;
+const svg = document.getElementById("chart"), tip = document.getElementById("tip");
+const L = 46, R = 14, T = 40, B = 40, W = 800, H = 330;
+const plotW = W - L - R, plotH = H - T - B;
+const bw = plotW / years.length;
+const x = i => L + i * bw;
+const y = v => T + plotH * (1 - v / maxV);
+let s = "";
+// 제도 3기 배경 밴드
+const eras = [[2008, 2012, "건의 반영기"], [2013, 2019, "공모·실시결과기"], [2020, 2026, "사업 공개기"]];
+for (const [a, b, lbl] of eras) {
+  const i0 = years.indexOf(a), i1 = years.indexOf(b);
+  s += `<rect class="era" x="${x(i0)}" y="${T-4}" width="${(i1-i0+1)*bw}" height="${plotH+8}" rx="6"/>`
+     + `<text class="era-lbl" x="${x(i0) + (i1-i0+1)*bw/2}" y="${T-12}" text-anchor="middle">${lbl}</text>`;
+}
+for (const g of [0, 5, 10, 15, 20]) {
+  s += `<line class="grid-line" x1="${L}" y1="${y(g)}" x2="${W-R}" y2="${y(g)}"/>`
+     + `<text class="axis" x="${L-8}" y="${y(g)+4}" text-anchor="end">${g}</text>`;
+}
+years.forEach((yr, i) => {
+  const v = docs[yr];
+  if (v > 0) s += `<rect class="bar" data-y="${yr}" x="${x(i)+bw*0.18}" y="${y(v)}" width="${bw*0.64}" height="${plotH*(v/maxV)}" rx="3"/>`;
+  if (yr % 2 === 1 || yr === 2026) s += `<text class="axis" x="${x(i)+bw/2}" y="${H-B+18}" text-anchor="middle">${String(yr).slice(2)}</text>`;
+});
+svg.innerHTML = s;
+svg.addEventListener("mousemove", e => {
+  const t = e.target.closest(".bar");
+  if (!t) { tip.style.opacity = 0; return; }
+  tip.innerHTML = `<b>${t.dataset.y}년</b> · 관련 문서 ${docs[t.dataset.y]}건`;
+  tip.style.left = Math.min(e.clientX + 14, innerWidth - 180) + "px";
+  tip.style.top = (e.clientY - 12) + "px";
+  tip.style.opacity = 1;
+});
+svg.addEventListener("mouseleave", () => tip.style.opacity = 0);
+</script>
+</body>
+</html>
