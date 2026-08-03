@@ -39,6 +39,10 @@ https://djmcp.up.railway.app/all/mcp        ← 통합(자치구 교차검색 ·
 
 이 계약이 어떻게 검증되는지가 이 레포의 알맹이입니다 → [무결성 렌즈 5문항](docs/methodology.md)
 
+## 데이터 스토리 (시각화)
+
+- [전국 조례 지형도](https://hippo0805.github.io/daejeon-mcp/viz/ordinance-landscape.html) — 화제 정책 10개 주제, 전국 266개 기관의 현행 조례 보유 현황
+
 ## 문서
 
 - [methodology.md](docs/methodology.md) — 무결성 렌즈 5문항: 수집·변환·비식별·서빙·교차검증, 단계마다 계측기·오라클·골든

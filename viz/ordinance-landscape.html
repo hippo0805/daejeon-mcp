@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>전국 조례 지형도 — 어떤 조례가 얼마나 퍼져 있나</title>
+<style>
+  :root {
+    color-scheme: light dark;
+    --surface-1: #fcfcfb; --surface-2: #f3f2ef;
+    --text-primary: #0b0b0b; --text-secondary: #52514e; --text-muted: #8a8880;
+    --series-1: #2a78d6; --grid: #e3e2dd; --border: #dedcd5; --accent: #166534;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --surface-1: #1a1a19; --surface-2: #232322;
+      --text-primary: #ffffff; --text-secondary: #c3c2b7; --text-muted: #8a897f;
+      --series-1: #3987e5; --grid: #333330; --border: #3a3936; --accent: #4ade80;
+    }
+  }
+  * { box-sizing: border-box; margin: 0; }
+  body { background: var(--surface-1); color: var(--text-primary);
+         font-family: "Apple SD Gothic Neo", Pretendard, "Noto Sans KR", sans-serif;
+         line-height: 1.6; padding: 44px 20px 90px; word-break: keep-all; }
+  .wrap { max-width: 860px; margin: 0 auto; }
+  .eyebrow { font-size: 13px; font-weight: 700; letter-spacing: .08em; color: var(--text-muted);
+             text-transform: uppercase; margin-bottom: 10px; }
+  h1 { font-size: 30px; letter-spacing: -1px; line-height: 1.25; }
+  .sub { color: var(--text-secondary); margin: 12px 0 30px; font-size: 15.5px; max-width: 62ch; }
+  .sub b { color: var(--text-primary); }
+  .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 10px;
+           margin-bottom: 38px; }
+  .tile { background: var(--surface-2); border: 1px solid var(--border); border-radius: 10px;
+          padding: 16px 18px 13px; }
+  .tile .v { font-size: 28px; font-weight: 800; letter-spacing: -1px; font-variant-numeric: tabular-nums; }
+  .tile .v small { font-size: 14px; font-weight: 500; color: var(--text-secondary); }
+  .tile .k { font-size: 13px; color: var(--text-secondary); margin-top: 3px; }
+  h2 { font-size: 18px; margin: 40px 0 6px; letter-spacing: -0.3px; }
+  .chart-sub { font-size: 13px; color: var(--text-muted); margin-bottom: 16px; }
+  .chart-card { background: var(--surface-2); border: 1px solid var(--border); border-radius: 12px;
+                padding: 22px 24px 10px; overflow-x: auto; }
+  svg text { font-family: inherit; }
+  .bar { fill: var(--series-1); }
+  .bar-hit { fill: transparent; }
+  .grid-line { stroke: var(--grid); stroke-width: 1; }
+  .lbl { fill: var(--text-secondary); font-size: 13px; }
+  .val { fill: var(--text-primary); font-size: 12.5px; font-variant-numeric: tabular-nums; }
+  .axis { fill: var(--text-muted); font-size: 11px; }
+  #tip { position: fixed; pointer-events: none; background: var(--surface-1);
+         border: 1px solid var(--border); border-radius: 8px; padding: 8px 12px; font-size: 13px;
+         box-shadow: 0 4px 16px rgba(0,0,0,.18); opacity: 0; transition: opacity .12s; z-index: 9;
+         max-width: 280px; }
+  .fact { border-left: 3px solid var(--accent); background: var(--surface-2);
+          padding: 14px 18px; border-radius: 0 10px 10px 0; margin: 26px 0; font-size: 15px; }
+  .fact b { color: var(--accent); }
+  .method { font-size: 13px; color: var(--text-muted); margin-top: 34px; line-height: 1.7;
+            border-top: 1px solid var(--border); padding-top: 18px; }
+  .cta { margin-top: 30px; background: var(--surface-2); border: 1px solid var(--border);
+         border-radius: 12px; padding: 20px 22px; }
+  .cta b { display: block; margin-bottom: 6px; font-size: 15.5px; }
+  .cta code { background: var(--surface-1); border: 1px solid var(--border); border-radius: 6px;
+              padding: 2px 8px; font-size: 12.5px; }
+  .cta .q { color: var(--text-secondary); font-size: 13.5px; margin-top: 8px; }
+  a { color: var(--series-1); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="eyebrow">대전 행정정보 MCP · 데이터 스토리 #1</div>
+  <h1>전국 조례 지형도 —<br>어떤 조례가, 얼마나 퍼져 있나</h1>
+  <p class="sub">전국 지자체·교육청 <b>266개 기관</b>의 현행 자치법규 <b>161,602건</b>을 한 번에 검색할 수
+  있게 되면, 이런 질문이 몇 초 만에 풀립니다 — <b>"이 조례, 다른 동네에도 있나?"</b>
+  화제의 정책 주제 10개로 현행 조례 보유 현황을 집계했습니다.</p>
+
+  <div class="tiles">
+    <div class="tile"><div class="v">266<small>개</small></div><div class="k">집계 대상 기관 (지자체·교육청)</div></div>
+    <div class="tile"><div class="v">161,602<small>건</small></div><div class="k">현행 자치법규 (전수)</div></div>
+    <div class="tile"><div class="v">92<small>%</small></div><div class="k">고독사 예방 조례 보유율 — 1위 주제</div></div>
+  </div>
+
+  <h2>주제별 조례 보유 기관 수</h2>
+  <div class="chart-sub">전국 266개 기관 중 해당 주제의 현행 조례를 보유한 기관 · 막대에 올리면 상세 · 2026-08-02 기준</div>
+  <div class="chart-card">
+    <svg id="chart" width="800" height="420" viewBox="0 0 800 420" role="img"
+         aria-label="주제별 조례 보유 기관 수 가로 막대 차트"></svg>
+  </div>
+
+  <div class="fact">
+    가장 빠르게 번지는 주제는 <b>인공지능(AI)</b>입니다 — 2023년 7월 경기 오산시가 전국 최초로
+    제정한 뒤, <b>3년 만에 127개 기관</b>이 AI 관련 조례를 갖게 됐습니다. 반면 <b>고독사 예방</b>은
+    이미 전국 92%가 보유한, 사실상의 표준 조례가 됐습니다.
+  </div>
+
+  <div class="cta">
+    <b>이 데이터, 직접 물어볼 수 있습니다</b>
+    AI 클라이언트(Claude 등)의 MCP 설정에 <code>https://djmcp.up.railway.app/all/mcp</code> 를
+    등록하면 전국 조례 전수를 근거 인용과 함께 질의할 수 있습니다 — 무료·가입 없음.
+    <div class="q">예: "우리 구에 없는 1인 가구 지원 조례, 다른 지자체는 어떻게 만들었어?" ·
+    연결 가이드: <a href="https://github.com/hippo0805/daejeon-mcp">github.com/hippo0805/daejeon-mcp</a></div>
+  </div>
+
+  <p class="method"><b>방법</b> — 법제처 국가법령정보 공동활용 API로 수집한 전국 현행 자치법규
+  161,602건(2026-08-02 기준·일일 갱신) 중, 법규 <b>명칭</b>에 주제 키워드가 포함된 조례·규칙을
+  보유한 기관 수를 셌습니다. 명칭 기준 집계이므로 다른 이름으로 같은 내용을 규정한 조례는
+  누락될 수 있습니다(보수적 하한). '최초 제정'은 해당 주제가 2023년 이후 등장해 전체 이력이
+  현행 데이터에 남아 있는 인공지능 주제에만 표기했습니다 — 개정 시 원 제정일이 현행 목록에서
+  사라지는 데이터 특성상, 다른 주제의 최초 제정 주장은 하지 않습니다. 원 출처: 법제처
+  국가법령정보(law.go.kr). 문서·방법론: CC BY 4.0.</p>
+</div>
+<div id="tip"></div>
+
+<script>
+const TOTAL = 266;
+const data = [
+  { t: "고독사 예방",        n: 244, laws: 277 },
+  { t: "다문화가족 지원",    n: 236, laws: 252 },
+  { t: "기후위기 대응",      n: 229, laws: 233 },
+  { t: "빈집 정비",          n: 218, laws: 243 },
+  { t: "청년 기본",          n: 206, laws: 241 },
+  { t: "개인형 이동장치",    n: 195, laws: 197 },
+  { t: "아동친화도시",       n: 146, laws: 148 },
+  { t: "1인 가구",           n: 141, laws: 153 },
+  { t: "인공지능(AI)",       n: 127, laws: 195 },
+  { t: "반려동물",           n: 123, laws: 186 },
+];
+const svg = document.getElementById("chart"), tip = document.getElementById("tip");
+const L = 150, R = 88, T = 18, rowH = 37, barH = 15, W = 800;
+const plotW = W - L - R;
+const x = v => L + plotW * v / TOTAL;
+let s = "";
+for (const g of [0, 66, 133, 199, 266]) {
+  s += `<line class="grid-line" x1="${x(g)}" y1="${T-6}" x2="${x(g)}" y2="${T + data.length*rowH}"/>`
+     + `<text class="axis" x="${x(g)}" y="${T + data.length*rowH + 18}" text-anchor="middle">${g === 266 ? "266(전체)" : g}</text>`;
+}
+data.forEach((d, i) => {
+  const y = T + i*rowH + (rowH - barH)/2;
+  s += `<text class="lbl" x="${L-10}" y="${y + barH - 2}" text-anchor="end">${d.t}</text>`
+     + `<rect class="bar" x="${L}" y="${y}" width="${plotW*d.n/TOTAL}" height="${barH}" rx="4"/>`
+     + `<text class="val" x="${x(d.n)+8}" y="${y + barH - 2}">${d.n} (${Math.round(d.n/TOTAL*100)}%)</text>`
+     + `<rect class="bar-hit" data-i="${i}" x="${L}" y="${T + i*rowH}" width="${plotW+R}" height="${rowH}"/>`;
+});
+svg.innerHTML = s;
+svg.addEventListener("mousemove", e => {
+  const t = e.target.closest(".bar-hit");
+  if (!t) { tip.style.opacity = 0; return; }
+  const d = data[+t.dataset.i];
+  tip.innerHTML = `<b>${d.t}</b><br>보유 기관 ${d.n}/${TOTAL} (${Math.round(d.n/TOTAL*100)}%) · 현행 법규 ${d.laws}건`;
+  tip.style.left = Math.min(e.clientX + 14, innerWidth - 300) + "px";
+  tip.style.top = (e.clientY - 12) + "px";
+  tip.style.opacity = 1;
+});
+svg.addEventListener("mouseleave", () => tip.style.opacity = 0);
+</script>
+</body>
+</html>
