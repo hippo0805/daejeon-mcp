@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>중구 예산 20년 — 1,240억에서 7,230억까지</title>
+<style>
+  :root {
+    color-scheme: light dark;
+    --surface-1: #fcfcfb; --surface-2: #f3f2ef;
+    --text-primary: #0b0b0b; --text-secondary: #52514e; --text-muted: #8a8880;
+    --series-1: #2a78d6; --series-2: #eb6834; --grid: #e3e2dd; --border: #dedcd5; --accent: #166534;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --surface-1: #1a1a19; --surface-2: #232322;
+      --text-primary: #ffffff; --text-secondary: #c3c2b7; --text-muted: #8a897f;
+      --series-1: #3987e5; --series-2: #d95926; --grid: #333330; --border: #3a3936; --accent: #4ade80;
+    }
+  }
+  * { box-sizing: border-box; margin: 0; }
+  body { background: var(--surface-1); color: var(--text-primary);
+         font-family: "Apple SD Gothic Neo", Pretendard, "Noto Sans KR", sans-serif;
+         line-height: 1.6; padding: 44px 20px 90px; word-break: keep-all; }
+  .wrap { max-width: 860px; margin: 0 auto; }
+  .eyebrow { font-size: 13px; font-weight: 700; letter-spacing: .08em; color: var(--text-muted);
+             text-transform: uppercase; margin-bottom: 10px; }
+  h1 { font-size: 30px; letter-spacing: -1px; line-height: 1.25; }
+  .sub { color: var(--text-secondary); margin: 12px 0 30px; font-size: 15.5px; max-width: 64ch; }
+  .sub b { color: var(--text-primary); }
+  .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 10px;
+           margin-bottom: 36px; }
+  .tile { background: var(--surface-2); border: 1px solid var(--border); border-radius: 10px;
+          padding: 16px 18px 13px; }
+  .tile .v { font-size: 27px; font-weight: 800; letter-spacing: -1px; font-variant-numeric: tabular-nums; }
+  .tile .v small { font-size: 14px; font-weight: 500; color: var(--text-secondary); }
+  .tile .k { font-size: 13px; color: var(--text-secondary); margin-top: 3px; }
+  h2 { font-size: 18px; margin: 40px 0 6px; letter-spacing: -0.3px; }
+  .chart-sub { font-size: 13px; color: var(--text-muted); margin-bottom: 16px; }
+  .chart-card { background: var(--surface-2); border: 1px solid var(--border); border-radius: 12px;
+                padding: 22px 24px 12px; overflow-x: auto; }
+  .legend { display: flex; gap: 18px; font-size: 13px; color: var(--text-secondary); margin-bottom: 12px; }
+  .legend i { display: inline-block; width: 11px; height: 11px; border-radius: 3px; margin-right: 6px;
+              vertical-align: -1px; }
+  svg text { font-family: inherit; }
+  .grid-line { stroke: var(--grid); stroke-width: 1; }
+  .axis { fill: var(--text-muted); font-size: 11px; }
+  .share { fill: var(--text-secondary); font-size: 11px; font-weight: 700; }
+  .lbl { fill: var(--text-secondary); font-size: 12.5px; }
+  .val { fill: var(--text-primary); font-size: 12.5px; font-variant-numeric: tabular-nums; }
+  #tip { position: fixed; pointer-events: none; background: var(--surface-1);
+         border: 1px solid var(--border); border-radius: 8px; padding: 8px 12px; font-size: 13px;
+         box-shadow: 0 4px 16px rgba(0,0,0,.18); opacity: 0; transition: opacity .12s; z-index: 9; }
+  .fact { border-left: 3px solid var(--accent); background: var(--surface-2);
+          padding: 14px 18px; border-radius: 0 10px 10px 0; margin: 26px 0; font-size: 15px; }
+  .fact b { color: var(--accent); }
+  .method { font-size: 13px; color: var(--text-muted); margin-top: 34px; line-height: 1.7;
+            border-top: 1px solid var(--border); padding-top: 18px; }
+  .cta { margin-top: 30px; background: var(--surface-2); border: 1px solid var(--border);
+         border-radius: 12px; padding: 20px 22px; }
+  .cta b { display: block; margin-bottom: 6px; font-size: 15.5px; }
+  .cta code { background: var(--surface-1); border: 1px solid var(--border); border-radius: 6px;
+              padding: 2px 8px; font-size: 12.5px; }
+  .cta .q { color: var(--text-secondary); font-size: 13.5px; margin-top: 8px; }
+  a { color: var(--series-1); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="eyebrow">대전 행정정보 MCP · 데이터 스토리 #3 · 대전 중구</div>
+  <h1>중구 예산 20년 —<br>1,240억에서 7,230억까지</h1>
+  <p class="sub">대전 중구가 공개한 세출예산서 20년치(2008~2026 본예산)를 구조화하면, 구 재정의
+  성장과 무게 이동이 한눈에 보입니다. 결론부터: 예산은 <b>5.8배</b>가 됐고, 그 성장의
+  대부분은 <b>복지</b>가 만들었습니다.</p>
+
+  <div class="tiles">
+    <div class="tile"><div class="v">×5.8</div><div class="k">본예산 총액 (2008 1,240억 → 2026 7,230억)</div></div>
+    <div class="tile"><div class="v">10.3<small>%</small></div><div class="k">연평균 성장률 (18년)</div></div>
+    <div class="tile"><div class="v">67<small>%</small></div><div class="k">2026년 복지 계열 부서 비중</div></div>
+  </div>
+
+  <h2>연도별 본예산 — 복지 계열과 그 외</h2>
+  <div class="chart-sub">부서 예산 기준(본예산) · 막대에 올리면 상세 · 단위 십억원</div>
+  <div class="chart-card">
+    <div class="legend"><span><i style="background:var(--series-1)"></i>복지 계열 부서</span>
+      <span><i style="background:var(--series-2)"></i>그 외 부서</span></div>
+    <svg id="chart" width="800" height="360" viewBox="0 0 800 360" role="img"
+         aria-label="연도별 본예산 누적 막대 — 복지 계열과 그 외"></svg>
+  </div>
+
+  <div class="fact">
+    복지가 예산의 <b>절반을 넘은 것은 2011년</b>부터입니다. 이후 한 번도 절반 아래로 내려가지
+    않았고, 2024년부터는 <b>3분의 2</b>를 차지합니다. 2026년 노인장애인과 한 부서의 예산
+    (2,440억원)은 <b>2008년 중구 전체 예산(1,240억)의 두 배</b>입니다.
+  </div>
+
+  <h2>2026년, 예산은 어디에 있나 — 상위 부서</h2>
+  <div class="chart-sub">2026 본예산 부서별 · 단위 십억원</div>
+  <div class="chart-card">
+    <svg id="chart2" width="800" height="330" viewBox="0 0 800 330" role="img"
+         aria-label="2026년 부서별 예산 가로 막대"></svg>
+  </div>
+
+  <div class="cta">
+    <b>이 수치, 직접 파고들 수 있습니다</b>
+    AI 클라이언트(Claude 등)의 MCP 설정에 <code>https://djmcp.up.railway.app/junggu/mcp</code> 를
+    등록하면 부서→정책→세부사업까지 드릴다운하고, 특정 사업의 20년 증감을 근거 페이지와 함께
+    추적할 수 있습니다 — 무료·가입 없음.
+    <div class="q">예: "노인장애인과 2026년 예산을 세부사업까지 보여줘" · "기초연금 예산 추이는?" ·
+    연결 가이드: <a href="https://github.com/hippo0805/daejeon-mcp">github.com/hippo0805/daejeon-mcp</a></div>
+  </div>
+
+  <p class="method"><b>방법</b> — 대전 중구 세출예산서(2008~2026 본예산)를 부서 단위로 구조화해
+  집계했습니다. 이 구조화 수치는 정부 공식 재정 데이터(지방재정365)와 15개 연도 총액이 원 단위까지
+  일치함을 교차 확인했습니다. '복지 계열'은 부서 명칭 기준 분류(복지·노인·장애인·여성·아동·보육·
+  가정 포함 — 복지과·가정지원과·가정복지과·사회복지과·복지정책과·여성가족과·여성아동과·
+  노인장애인과)이며, 보건소는 별도 분류로 복지 계열에 넣지 않았습니다. 부서 개편(예: 사회복지과의
+  분화)은 명칭 기준을 따르므로 연도 간 경계가 일부 이동할 수 있습니다. 2008~2009년 예산서는 부서
+  체계가 현재보다 소략해 복지 비중이 낮게 나타날 수 있습니다. 원 출처: 중구청 예산서공개·
+  지방재정365. 문서·방법론: CC BY 4.0.</p>
+</div>
+<div id="tip"></div>
+
+<script>
+const D = {
+ 2008:{t:124,w:43},2009:{t:187,w:51},2010:{t:207,w:102},2011:{t:217,w:116},2012:{t:244,w:125},
+ 2013:{t:261,w:139},2014:{t:287,w:168},2015:{t:301,w:184},2016:{t:323,w:193},2017:{t:344,w:202},
+ 2018:{t:381,w:230},2019:{t:427,w:261},2020:{t:481,w:301},2021:{t:520,w:325},2022:{t:567,w:359},
+ 2023:{t:621,w:395},2024:{t:648,w:434},2025:{t:684,w:449},2026:{t:723,w:486}};
+const years = Object.keys(D).map(Number);
+const maxV = 750;
+const svg = document.getElementById("chart"), tip = document.getElementById("tip");
+const L = 50, R = 12, T = 26, B = 40, W = 800, H = 360;
+const plotW = W - L - R, plotH = H - T - B;
+const bw = plotW / years.length;
+const x = i => L + i * bw, y = v => T + plotH * (1 - v / maxV);
+let s = "";
+for (const g of [0, 250, 500, 750]) {
+  s += `<line class="grid-line" x1="${L}" y1="${y(g)}" x2="${W-R}" y2="${y(g)}"/>`
+     + `<text class="axis" x="${L-8}" y="${y(g)+4}" text-anchor="end">${g}</text>`;
+}
+years.forEach((yr, i) => {
+  const d = D[yr], o = d.t - d.w;
+  const bx = x(i) + bw*0.16, bwid = bw*0.68;
+  s += `<rect fill="var(--series-1)" x="${bx}" y="${y(d.w)}" width="${bwid}" height="${plotH*d.w/maxV}" rx="3"/>`
+     + `<rect fill="var(--series-2)" x="${bx}" y="${y(d.t)+0}" width="${bwid}" height="${Math.max(0, plotH*o/maxV - 2)}" rx="3"/>`
+     + `<rect class="bar-hit" fill="transparent" data-y="${yr}" x="${x(i)}" y="${T}" width="${bw}" height="${plotH}"/>`;
+  if ([2008, 2011, 2017, 2021, 2026].includes(yr))
+    s += `<text class="share" x="${x(i)+bw/2}" y="${y(d.t)-6}" text-anchor="middle">${Math.round(d.w/d.t*100)}%</text>`;
+  if (yr % 2 === 0) s += `<text class="axis" x="${x(i)+bw/2}" y="${H-B+18}" text-anchor="middle">${String(yr).slice(2)}</text>`;
+});
+svg.innerHTML = s;
+svg.addEventListener("mousemove", e => {
+  const t = e.target.closest(".bar-hit");
+  if (!t) { tip.style.opacity = 0; return; }
+  const d = D[t.dataset.y];
+  tip.innerHTML = `<b>${t.dataset.y}년</b> 총 ${d.t}십억<br>복지 계열 ${d.w}십억 (${Math.round(d.w/d.t*100)}%) · 그 외 ${(d.t-d.w).toFixed(0)}십억`;
+  tip.style.left = Math.min(e.clientX + 14, innerWidth - 240) + "px";
+  tip.style.top = (e.clientY - 12) + "px";
+  tip.style.opacity = 1;
+});
+svg.addEventListener("mouseleave", () => tip.style.opacity = 0);
+
+// 2026 부서 상위
+const top = [["노인장애인과",244],["여성아동과",116],["사회복지과",97],["회계과",51],["복지정책과",30],
+             ["행정지원과",30],["기후환경과",29],["일자리경제과",16]];
+const s2v = document.getElementById("chart2");
+const L2 = 128, R2 = 70, T2 = 14, rowH = 37, barH = 15;
+const plotW2 = W - L2 - R2, maxB = 250;
+const x2 = v => L2 + plotW2 * v / maxB;
+let s2 = "";
+for (const g of [0, 50, 100, 150, 200, 250]) {
+  s2 += `<line class="grid-line" x1="${x2(g)}" y1="${T2-4}" x2="${x2(g)}" y2="${T2 + top.length*rowH}"/>`
+      + `<text class="axis" x="${x2(g)}" y="${T2 + top.length*rowH + 18}" text-anchor="middle">${g}</text>`;
+}
+top.forEach(([nm, v], i) => {
+  const yy = T2 + i*rowH + (rowH - barH)/2;
+  const wel = /복지|노인|여성|아동/.test(nm);
+  s2 += `<text class="lbl" x="${L2-10}" y="${yy + barH - 2}" text-anchor="end">${nm}</text>`
+      + `<rect fill="var(${wel ? "--series-1" : "--series-2"})" x="${L2}" y="${yy}" width="${plotW2*v/maxB}" height="${barH}" rx="4"/>`
+      + `<text class="val" x="${x2(v)+8}" y="${yy + barH - 2}">${v}</text>`;
+});
+s2v.innerHTML = s2;
+</script>
+</body>
+</html>
