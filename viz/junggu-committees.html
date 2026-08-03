@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>102개 위원회, 시민 861명 — 중구 위원회 지도</title>
+<style>
+  :root {
+    color-scheme: light dark;
+    --surface-1: #fcfcfb; --surface-2: #f3f2ef;
+    --text-primary: #0b0b0b; --text-secondary: #52514e; --text-muted: #8a8880;
+    --series-1: #2a78d6; --series-2: #eb6834; --grid: #e3e2dd; --border: #dedcd5; --accent: #166534;
+    --warn: #b45309;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --surface-1: #1a1a19; --surface-2: #232322;
+      --text-primary: #ffffff; --text-secondary: #c3c2b7; --text-muted: #8a897f;
+      --series-1: #3987e5; --series-2: #d95926; --grid: #333330; --border: #3a3936; --accent: #4ade80;
+      --warn: #eda100;
+    }
+  }
+  * { box-sizing: border-box; margin: 0; }
+  body { background: var(--surface-1); color: var(--text-primary);
+         font-family: "Apple SD Gothic Neo", Pretendard, "Noto Sans KR", sans-serif;
+         line-height: 1.6; padding: 44px 20px 90px; word-break: keep-all; }
+  .wrap { max-width: 880px; margin: 0 auto; }
+  .eyebrow { font-size: 13px; font-weight: 700; letter-spacing: .08em; color: var(--text-muted);
+             text-transform: uppercase; margin-bottom: 10px; }
+  h1 { font-size: 30px; letter-spacing: -1px; line-height: 1.25; }
+  .sub { color: var(--text-secondary); margin: 12px 0 30px; font-size: 15.5px; max-width: 64ch; }
+  .sub b { color: var(--text-primary); }
+  .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px;
+           margin-bottom: 36px; }
+  .tile { background: var(--surface-2); border: 1px solid var(--border); border-radius: 10px;
+          padding: 16px 18px 13px; }
+  .tile .v { font-size: 27px; font-weight: 800; letter-spacing: -1px; font-variant-numeric: tabular-nums; }
+  .tile .v small { font-size: 14px; font-weight: 500; color: var(--text-secondary); }
+  .tile .k { font-size: 13px; color: var(--text-secondary); margin-top: 3px; }
+  h2 { font-size: 18px; margin: 40px 0 6px; letter-spacing: -0.3px; }
+  .chart-sub { font-size: 13px; color: var(--text-muted); margin-bottom: 16px; }
+  .chart-card { background: var(--surface-2); border: 1px solid var(--border); border-radius: 12px;
+                padding: 22px 24px 12px; overflow-x: auto; }
+  .legend { display: flex; gap: 18px; font-size: 13px; color: var(--text-secondary); margin-bottom: 12px; }
+  .legend i { display: inline-block; width: 11px; height: 11px; border-radius: 3px; margin-right: 6px;
+              vertical-align: -1px; }
+  svg text { font-family: inherit; }
+  .grid-line { stroke: var(--grid); stroke-width: 1; }
+  .axis { fill: var(--text-muted); font-size: 11px; }
+  .lbl { fill: var(--text-secondary); font-size: 12.5px; }
+  .val { fill: var(--text-primary); font-size: 12.5px; font-variant-numeric: tabular-nums; }
+  .ref { stroke: var(--warn); stroke-width: 1.5; stroke-dasharray: 5 4; }
+  .ref-t { fill: var(--warn); font-size: 11px; font-weight: 700; }
+  #tip { position: fixed; pointer-events: none; background: var(--surface-1);
+         border: 1px solid var(--border); border-radius: 8px; padding: 8px 12px; font-size: 13px;
+         box-shadow: 0 4px 16px rgba(0,0,0,.18); opacity: 0; transition: opacity .12s; z-index: 9; }
+  table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+  th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--border); }
+  th { color: var(--text-secondary); font-weight: 600; font-size: 12.5px; background: var(--surface-2); }
+  td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .low { color: var(--warn); font-weight: 700; }
+  .fact { border-left: 3px solid var(--accent); background: var(--surface-2);
+          padding: 14px 18px; border-radius: 0 10px 10px 0; margin: 26px 0; font-size: 15px; }
+  .fact b { color: var(--accent); }
+  .method { font-size: 13px; color: var(--text-muted); margin-top: 34px; line-height: 1.7;
+            border-top: 1px solid var(--border); padding-top: 18px; }
+  .cta { margin-top: 30px; background: var(--surface-2); border: 1px solid var(--border);
+         border-radius: 12px; padding: 20px 22px; }
+  .cta b { display: block; margin-bottom: 6px; font-size: 15.5px; }
+  .cta code { background: var(--surface-1); border: 1px solid var(--border); border-radius: 6px;
+              padding: 2px 8px; font-size: 12.5px; }
+  .cta .q { color: var(--text-secondary); font-size: 13.5px; margin-top: 8px; }
+  a { color: var(--series-1); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="eyebrow">대전 행정정보 MCP · 데이터 스토리 #6 · 대전 중구</div>
+  <h1>102개 위원회, 시민 861명 —<br>주민참여의 실제 지도</h1>
+  <p class="sub">주민참여는 선언이 아니라 <b>자리</b>입니다. 중구가 반기마다 공시하는
+  「위원회 운영 현황」을 구조화하면, 시민이 실제로 앉아 있는 자리가 몇 개이고 어디에 있는지,
+  <b>성별 참여 기준(40%)</b>은 지켜지는지가 그대로 보입니다. 공무원에게는 위원회 관리 실무의
+  지도이고, 주민에게는 참여의 입구 목록입니다.</p>
+
+  <div class="tiles">
+    <div class="tile"><div class="v">102<small>개</small></div><div class="k">운영 중인 위원회 (2026.1.1 기준)</div></div>
+    <div class="tile"><div class="v">861<small>명</small></div><div class="k">위촉·임명직 = 시민 참여 자리</div></div>
+    <div class="tile"><div class="v">42.2<small>%</small></div><div class="k">위촉직 여성 비율 (법정 기준 40% 충족)</div></div>
+    <div class="tile"><div class="v">+8<small>개</small></div><div class="k">3년간 위원회 증가 (2023.1 94개 → 102개)</div></div>
+  </div>
+
+  <h2>3년 추이 — 위원회도 시민 자리도 늘었다</h2>
+  <div class="chart-sub">반기별 공시 기준 · 위촉직(시민)과 당연직(공무원) 구성 · 여성 비율 병기</div>
+  <div class="chart-card">
+    <div class="legend"><span><i style="background:var(--series-1)"></i>위촉·임명직(시민)</span>
+      <span><i style="background:var(--series-2)"></i>당연직(공무원)</span></div>
+    <svg id="chart" width="800" height="300" viewBox="0 0 800 300" role="img"
+         aria-label="반기별 위원 구성 추이"></svg>
+  </div>
+
+  <h2>부서별 위원회 — 어디에 참여 자리가 있나</h2>
+  <div class="chart-sub">위원회 수 상위 10개 부서 · 각 부서 위촉직 여성 비율 병기 · 2026.1.1 기준</div>
+  <div class="chart-card">
+    <svg id="chart2" width="800" height="400" viewBox="0 0 800 400" role="img"
+         aria-label="부서별 위원회 수 가로 막대"></svg>
+  </div>
+
+  <div class="fact">
+    전체 평균은 법정 기준(40%)을 넘지만, <b>위원회별로 보면 편차가 큽니다</b>. 여성아동과 소관
+    위원회는 68%인 반면 재난안전과는 15% — 안전·건설·도시계획 계열이 특히 낮습니다.
+    위촉직 5명 이상인 위원회 중 <b>15개가 여성 30% 미만</b>이고, 이 중 2개는 여성 위원이
+    <b>한 명도 없습니다</b>(유통업상생발전협의회 6명 전원 남성, 도시계획위원회 14명 전원 남성).
+  </div>
+
+  <h2>성별 참여가 낮은 위원회 — 개선 대상 목록</h2>
+  <div class="chart-sub">위촉직 5명 이상 & 여성 30% 미만 (하위 10개) · 공무원 실무 점검용</div>
+  <table>
+    <tr><th>위원회</th><th class="n">위촉 남</th><th class="n">위촉 여</th><th class="n">여성 비율</th></tr>
+    <tr><td>중구 유통업상생발전협의회</td><td class="n">6</td><td class="n">0</td><td class="n low">0%</td></tr>
+    <tr><td>중구 도시계획 위원회</td><td class="n">14</td><td class="n">0</td><td class="n low">0%</td></tr>
+    <tr><td>중구 재해영향평가 심의위원회</td><td class="n">18</td><td class="n">1</td><td class="n low">5%</td></tr>
+    <tr><td>중구 안전관리실무위원회</td><td class="n">11</td><td class="n">1</td><td class="n low">8%</td></tr>
+    <tr><td>중구 안전관리 위원회</td><td class="n">5</td><td class="n">1</td><td class="n low">17%</td></tr>
+    <tr><td>교통안전정책 심의위원회</td><td class="n">5</td><td class="n">1</td><td class="n low">17%</td></tr>
+    <tr><td>학교폭력대책중구협의회</td><td class="n">8</td><td class="n">2</td><td class="n low">20%</td></tr>
+    <tr><td>중구 농지위원회</td><td class="n">12</td><td class="n">3</td><td class="n low">20%</td></tr>
+  </table>
+
+  <h2>시민이 가장 많이 앉는 자리 — 위촉직 최다 위원회</h2>
+  <div class="chart-sub">참여를 원한다면 문이 가장 넓은 곳 · 2026.1.1 기준</div>
+  <table>
+    <tr><th>위원회</th><th class="n">위촉직</th><th class="n">전체</th></tr>
+    <tr><td>중구 지방건축위원회</td><td class="n">32</td><td class="n">35</td></tr>
+    <tr><td>중구 통합방위협의회</td><td class="n">31</td><td class="n">40</td></tr>
+    <tr><td><b>중구 주민참여예산위원회</b></td><td class="n">30</td><td class="n">30</td></tr>
+    <tr><td>중구 정책자문단</td><td class="n">29</td><td class="n">29</td></tr>
+    <tr><td>지역사회보장협의체(대표협의체)</td><td class="n">26</td><td class="n">30</td></tr>
+    <tr><td>경관위원회</td><td class="n">22</td><td class="n">23</td></tr>
+    <tr><td>통합지원협의체</td><td class="n">20</td><td class="n">24</td></tr>
+  </table>
+
+  <div class="fact">
+    주민참여예산위원회와 정책자문단은 <b>전원이 시민</b>입니다(당연직 0명). 반대로 구정조정
+    위원회·조례규칙심의위원회 등 <b>7개 위원회는 전원 공무원</b>이고, 1개(대전칼국수축제
+    추진위원회)는 위원이 0명 — 명목만 남은 위원회입니다. 이런 사실은 <b>표를 구조화해야만</b>
+    드러납니다.
+  </div>
+
+  <div class="cta">
+    <b>내 관심 위원회, 직접 찾아볼 수 있습니다</b>
+    AI 클라이언트(Claude 등)의 MCP 설정에 <code>https://djmcp.up.railway.app/junggu/mcp</code> 를
+    등록하면 위원회 현황표를 포함한 공개 문서 전체를 근거와 함께 질의할 수 있습니다 — 무료·가입 없음.
+    <div class="q">예: "중구 위원회 중 위촉직 여성 비율이 40% 미만인 곳을 모두 알려줘" ·
+    "주민참여예산위원회 구성과 최근 회의 내용은?" ·
+    연결 가이드: <a href="https://github.com/hippo0805/daejeon-mcp">github.com/hippo0805/daejeon-mcp</a></div>
+  </div>
+
+  <p class="method"><b>방법</b> — 대전 중구가 반기마다 공시하는 「위원회 운영 현황」 문서
+  (2023.1~2026.1, 7개 시점)의 표를 구조화해 집계했습니다. 위원회 수·위원 수는 각 공시의 원문 표
+  기준이며, 공시 서식이 시점마다 달라(부서 열 위치 변경 등) 서식 자동 판별 후 파싱했습니다.
+  2022년 이전 공시는 표 서식이 더 달라 이 페이지의 추이에서 제외했습니다. '성별 참여 기준 40%'는
+  「양성평등기본법」 제21조에 따른 위촉직 성별 구성 기준을 가리키며, 개별 위원회의 법령상 예외
+  사유는 이 데이터만으로 판별할 수 없습니다 — <b>수치는 점검의 출발점이지 판정이 아닙니다</b>.
+  원 출처: 중구청 홈페이지 사전정보공표(공공누리). 문서·방법론: CC BY 4.0.</p>
+</div>
+<div id="tip"></div>
+
+<script>
+const S = [
+  {d:"23.1", ex:311, ci:696, f:42.4}, {d:"23.7", ex:326, ci:718, f:43.9},
+  {d:"24.1", ex:314, ci:735, f:42.2}, {d:"24.7", ex:313, ci:758, f:42.2},
+  {d:"25.1", ex:338, ci:813, f:42.2}, {d:"25.7", ex:353, ci:860, f:42.0},
+  {d:"26.1", ex:348, ci:861, f:42.2},
+];
+const tip = document.getElementById("tip");
+const svg = document.getElementById("chart");
+const W = 800, H = 300, L = 48, R = 14, T = 30, B = 40;
+const pw = W - L - R, ph = H - T - B, bw = pw / S.length, maxV = 1300;
+const y = v => T + ph * (1 - v / maxV);
+let s = "";
+for (const g of [0, 400, 800, 1200]) {
+  s += `<line class="grid-line" x1="${L}" y1="${y(g)}" x2="${W-R}" y2="${y(g)}"/>`
+     + `<text class="axis" x="${L-8}" y="${y(g)+4}" text-anchor="end">${g.toLocaleString()}</text>`;
+}
+S.forEach((d, i) => {
+  const bx = L + i*bw + bw*0.2, bwid = bw*0.6, tot = d.ex + d.ci;
+  s += `<rect fill="var(--series-1)" x="${bx}" y="${y(d.ci)}" width="${bwid}" height="${ph*d.ci/maxV}" rx="3"/>`
+     + `<rect fill="var(--series-2)" x="${bx}" y="${y(tot)}" width="${bwid}" height="${Math.max(0, ph*d.ex/maxV - 2)}" rx="3"/>`
+     + `<text class="axis" x="${bx+bwid/2}" y="${y(tot)-6}" text-anchor="middle" style="fill:var(--text-secondary);font-weight:700">여 ${d.f}%</text>`
+     + `<text class="axis" x="${bx+bwid/2}" y="${H-B+18}" text-anchor="middle">${d.d}</text>`
+     + `<rect fill="transparent" class="hit" data-i="${i}" x="${L+i*bw}" y="${T}" width="${bw}" height="${ph}"/>`;
+});
+svg.innerHTML = s;
+svg.addEventListener("mousemove", e => {
+  const t = e.target.closest(".hit");
+  if (!t) { tip.style.opacity = 0; return; }
+  const d = S[+t.dataset.i];
+  tip.innerHTML = `<b>20${d.d} 기준</b><br>위촉(시민) ${d.ci}명 · 당연직 ${d.ex}명<br>위촉직 여성 ${d.f}%`;
+  tip.style.left = Math.min(e.clientX + 14, innerWidth - 230) + "px";
+  tip.style.top = (e.clientY - 12) + "px";
+  tip.style.opacity = 1;
+});
+svg.addEventListener("mouseleave", () => tip.style.opacity = 0);
+
+const D = [["기획홍보실",11,42],["일자리경제과",8,33],["여성아동과",7,68],["토지정보과",7,49],
+           ["재난안전과",6,15],["자치분권과",5,45],["복지정책과",5,42],["건축과",5,46],
+           ["문화체육관광과",4,42],["평생교육과",4,53]];
+const c2 = document.getElementById("chart2");
+const L2 = 130, R2 = 110, T2 = 16, rowH = 37, barH = 15, maxD = 12;
+const pw2 = W - L2 - R2, x2 = v => L2 + pw2 * v / maxD;
+let s2 = "";
+for (const g of [0, 3, 6, 9, 12]) {
+  s2 += `<line class="grid-line" x1="${x2(g)}" y1="${T2-4}" x2="${x2(g)}" y2="${T2 + D.length*rowH}"/>`
+      + `<text class="axis" x="${x2(g)}" y="${T2 + D.length*rowH + 18}" text-anchor="middle">${g}</text>`;
+}
+D.forEach(([nm, n, fr], i) => {
+  const yy = T2 + i*rowH + (rowH - barH)/2;
+  s2 += `<text class="lbl" x="${L2-10}" y="${yy + barH - 2}" text-anchor="end">${nm}</text>`
+      + `<rect fill="var(--series-1)" x="${L2}" y="${yy}" width="${pw2*n/maxD}" height="${barH}" rx="4"/>`
+      + `<text class="val" x="${x2(n)+8}" y="${yy + barH - 2}">${n}개 · 여성 <tspan style="fill:${fr<40?'var(--warn)':'var(--text-secondary)'};font-weight:700">${fr}%</tspan></text>`;
+});
+c2.innerHTML = s2;
+</script>
+</body>
+</html>
