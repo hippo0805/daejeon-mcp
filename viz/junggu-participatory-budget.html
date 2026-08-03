@@ -72,6 +72,16 @@
   .cta code { background: var(--surface-1); border: 1px solid var(--border); border-radius: 6px;
               padding: 2px 8px; font-size: 12.5px; }
   .cta .q { color: var(--text-secondary); font-size: 13.5px; margin-top: 8px; }
+  .stream-legend { display: flex; flex-wrap: wrap; gap: 8px 16px; font-size: 12.5px;
+                   color: var(--text-secondary); margin-bottom: 14px; }
+  .stream-legend span { display: inline-flex; align-items: center; gap: 6px; cursor: default; }
+  .stream-legend i { width: 11px; height: 11px; border-radius: 3px; display: inline-block; }
+  .flowfacts { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 10px;
+               margin-top: 16px; }
+  .ff { background: var(--surface-2); border: 1px solid var(--border); border-radius: 10px;
+        padding: 14px 16px; font-size: 13.5px; }
+  .ff b { display: block; font-size: 14px; margin-bottom: 4px; }
+  .ff .pct { font-family: inherit; font-weight: 800; color: var(--accent); }
   a { color: var(--series-1); }
   details { background: var(--surface-2); border: 1px solid var(--border); border-radius: 10px;
             margin-bottom: 8px; overflow: hidden; }
@@ -144,6 +154,26 @@
     보이는 사실입니다.
   </div>
 
+
+
+  <h2>주민 관심의 흐름 — 6년간 무엇을 고쳐왔나</h2>
+  <div class="chart-sub">사업 공개기(2020~2025) 262건을 주제별로 분류해 연도별 구성을 이어 본 흐름 ·
+    영역에 마우스를 올리면 그 해 사업 예시</div>
+  <div class="chart-card">
+    <div class="stream-legend" id="slegend"></div>
+    <svg id="stream" width="800" height="360" viewBox="0 0 800 360" role="img"
+         aria-label="연도별 주제 구성 흐름 스트림 차트"></svg>
+  </div>
+  <div class="flowfacts">
+    <div class="ff"><b>밤길은 언제나 1순위</b>안전·조명이 6년 내내 최대 주제(총 73건, <span class="pct">평균 27%</span>).
+      주민이 예산을 쥐면 가장 먼저 고치는 건 어두운 골목입니다.</div>
+    <div class="ff"><b>2022년, 환경이 밀려들다</b>쓰레기·불법투기·악취 대응이 <span class="pct">4% → 30%</span>로 급등
+      (2021→2022). CCTV·악취방지커버가 동시다발로 등장한 해입니다.</div>
+    <div class="ff"><b>공간을 고치다 공간을 만들다</b>초기엔 청사·회의실 등 시설개선(2020년 12%)이 있었지만
+      점차 사라지고(<span class="pct">2025년 0%</span>), 대신 공원·쉼터 같은 <b>주민이 머무는 야외 공간</b>으로 이동.</div>
+    <div class="ff"><b>디지털의 등장</b>전자게시판·안내모니터 등 정보·홍보가 <span class="pct">2024년 12%</span>로 정점 —
+      코로나 이후 비대면 소통 수요가 예산에 나타났습니다.</div>
+  </div>
 
   <h2>연도별 사업 전체 목록 — 341건</h2>
   <div class="chart-sub">추출 가능한 11개 연도(건의 반영기 2008~2012 · 사업 공개기 2020~2025) · 2013~2019년은 원문이 이미지·통계 요약뿐이라 사업 단위 목록이 공개 문서에 없음</div>
@@ -565,6 +595,66 @@ svg.addEventListener("mousemove", e => {
   tip.style.opacity = 1;
 });
 svg.addEventListener("mouseleave", () => tip.style.opacity = 0);
+</script>
+
+<script>
+// ── 주제 흐름(스트림) ──────────────────────────────────────────────
+const YEARS = ["2020", "2021", "2022", "2023", "2024", "2025"];
+const TOT = [41, 48, 46, 59, 32, 36];
+const SER = {"안전·조명": [12, 16, 12, 15, 6, 12], "환경·청소": [7, 2, 14, 15, 7, 8], "쉼터·공원": [6, 7, 8, 12, 6, 4], "보행·도로": [5, 9, 5, 8, 2, 4], "복지·건강": [2, 5, 2, 3, 3, 2], "정보·홍보": [1, 2, 2, 3, 4, 2], "문화·교육": [3, 2, 2, 2, 2, 4], "시설·공간": [5, 3, 1, 1, 2, 0], "기타": [0, 2, 0, 0, 0, 0]};
+const EX = {"2020|안전·조명": ["급경사 지역 미끄럼 방지 도로 설치", "문화2동 내 주택가 내리막 이면도로 미끄럼방지시설 설치", "보문로 보행로 밝은거리 조성사업"], "2020|보행·도로": ["대종로593번길 보도정비사업", "목중로26번길 보도블록 정비사업", "중교로 보도블록 정비사업"], "2020|환경·청소": ["빗물받이 및 우수 맨홀 악취방지 커버 설치", "은행나무길 보도블록 교체", "철도변길 방음벽(시멘트벽) 도색사업"], "2020|쉼터·공원": ["환해진 대전천변 산책길, 함께 걸어요", "야외 정자쉼터 및 야외 운동기구 설치", "주민자치프로그램 및 행사용 접이식테이블, 의자 구입"], "2020|문화·교육": ["대전지역 제4차 4·1 독립만세운동 재현행사", "주민자치프로그램 이용자 샤워장 설치 공사", "버드내작은도서관 리모델링"], "2020|시설·공간": ["다목적 회의실 확장 구축", "동 청사 1층 출입문 자동문 교체 공사", "동 청사 1, 2층 화장실 리모델링 공사"], "2020|복지·건강": ["문화2동행정복지센터 외벽 타일 교체공사", "경로당 실내공기정화식물 설치"], "2020|정보·홍보": ["우리동네 보물찾기 (홍보안내도 제작)"], "2021|보행·도로": ["대사동 이면도로 재포장 공사", "중교 언더패스 도로포장 정비공사", "목동로 노후화된 보도블럭 교체"], "2021|안전·조명": ["목동로 안심 밝은 거리 조성", "주민 안전 확보를 위한 보안등 교체(LED등) 공사", "중교로, 대흥로 안전한 보행환경 개선 및 안전시설물 정"], "2021|기타": ["구석구석 편안한 우리동네 만들기", "우수 맨홀 신규 설치"], "2021|시설·공간": ["선화교, 석교 시설개선 사업", "목달동 오솔길 정비사업", "마을 대표 소통의 장 “부사칠석놀이보존회관”시설 개선"], "2021|환경·청소": ["우범지대는 옛말! 호남선 철로변 방음벽, 지하차도 도색", "은행나무 암나무 바꿔심기 사업"], "2021|쉼터·공원": ["평리공원 화장실 리모델링 사업", "기쁘다 새 데크 오셨네 (산책로 정비)", "자연친화 앤 여성친화 우리함께 놀이터 조성 사업"], "2021|복지·건강": ["여성친화도시 조성 사업 “herstory 여성을 알리다", "주민자치 활성화를 위한 목동행정복지센터 시설개선", "공동 조리장「용두 나눔부엌」설치"], "2021|문화·교육": ["대전지역 제4차 4.1 독립만세운동 재현행사", "생애별 양성평등 교육 행사"], "2021|정보·홍보": ["박용래시인 옛 집터 안내판 설치", "우리 마을 안내지도 만들기"], "2022|안전·조명": ["경사지 경계석 및 볼라드 설치", "경사도로 미끄럼방지 시설요망", "계백로 야간 걷기편한 보행등(LED) 설치"], "2022|환경·청소": ["배수로 악취차단 덮개 설치", "도심속 구거 정비로 악취 및 오염, 해충 피해 방지 및", "문화2동 악취방지커버 설치사업"], "2022|보행·도로": ["대전천서쪽 자전거3길 자동차도로 포장사업", "배수구마련 (석교동 269-19 언덕길)", "대흥동 우리들공원 둘레 수목 식재, 벤치 교체, 포장 "], "2022|쉼터·공원": ["유천시장 외벽 설치사업 (문화쉼터 아트월 조성사업)", "목동소공원 시설 개선 사업", "모두의 휴식을 위한 어린이공원 정비"], "2022|정보·홍보": ["공동주택 내 소식지 배부함 설치", "종이 안 쓰는 커뮤니티 게시판 설치"], "2022|문화·교육": ["「누구나 즐기는 새로운 주산놀이를 통한」 치매예방 및 ", "주민자치프로그램 노후 및 파손 물품 교체 구입"], "2022|복지·건강": ["주민공동조리장 시설개선 사업", "함께 가요! 휠체어 무료 대여사업"], "2022|시설·공간": ["용정아파트 밑기와 공중화장실 시설 개선"], "2023|정보·홍보": ["洞 소식을 한눈에, 디지털 홍보게시판 설치", "주민생활밀착형 전자 홍보게시판 설치", "No Paper ‘스마트 홍보 게시판’ 설치"], "2023|보행·도로": ["문화육교 아래 보도블록 설치", "낙후된 보도블럭으로 교체로 편안한 생활환경 조성", "유등천 인도정비"], "2023|환경·청소": ["산성동 악취방지커버 설치 사업", "철도변길 시멘트벽 도색 사업", "하수도 악취방지커버 설치"], "2023|문화·교육": ["주민자치센터 프로그램실 시설개선", "역사와 문화를 잇는 중촌음악회"], "2023|쉼터·공원": ["휴식과 배려가 있는 ‘야외 벤치’ 설치", "부사 산마을 어린이놀이터 시설 개선(어린이 대상)", "부사 산마을 어린이놀이터 시설 개선(주민 대상)"], "2023|안전·조명": ["대종로593번길 중앙선 시선유도봉 설치", "안영IC입구~뿌리공원 일원 조명 개선", "안전해요! 음악이흐르는 중촌근린공원"], "2023|복지·건강": ["백세건강 팔팔하게 어르신 메디컬 서비스", "이웃 나눔 봉사를 위한 주민공동조리장 시설 개선 사업", "중구 관내 경로당 냉·난방기(에어컨) 크리닝"], "2023|시설·공간": ["문창전통시장 입구 비가림 시설 설치 사업"], "2024|안전·조명": ["LED 보안등으로 안전한 중촌동 만들기", "우리동네 밝은 골목길 조성", "야간 안심 골목길 조성을 위한 보안등 조도 개선"], "2024|복지·건강": ["경로당 자동심장충격기 및 자동혈압계 설치", "내 건강지키기 자동혈압측정기 설치 사업", "중구 관내 경로당 공기청정기 필터 교환 및 클리닝 -위"], "2024|문화·교육": ["나라사랑 태극기 거리 조성", "문화와 어울림이 있는 목동 만들기 프로젝트"], "2024|시설·공간": ["동 청사 다목적실 및 탁구장(지하) 공기청정기 설치", "열림마당 환경 시설개선사업"], "2024|쉼터·공원": ["문창전통시장 고객쉼터 빔 프로젝터 설치 및 이동식 탁자", "어르신 힐링의자(안마의자) 보급", "지역주민을 위한 복합 쉼터 조성"], "2024|환경·청소": ["불법투기 감시 CCTV 4대 설치", "빗물받이 및 우수맨홀 악취방지커버 설치 및 교체", "쓰레기 불법투기 취약지역 CCTV 설치"], "2024|정보·홍보": ["홍보용 실내 전자게시판 설치", "주민홍보용 전자게시판 설치", "디지털 행정알림판 설치"], "2024|보행·도로": ["천근로 보도정비 사업", "오류동 계룡로 보도개선사업"], "2025|환경·청소": ["공공형 가로 쓰레기통 설치", "버드내 어린이공원 담벽 도색 사업", "살구나무 벌목 및 식재"], "2025|보행·도로": ["도로 환경 개선 사업", "보행자 도로 보문산 디자인 벤치 설치", "대흥로 보도환경 개선사업"], "2025|정보·홍보": ["디지털 안내모니터 설치", "태평1동 복합커뮤니티센터 안내 로고젝터 설치"], "2025|안전·조명": ["범죄 없는 안심 골목길 조성사업 추진", "안심귀가 바닥조명 설치", "안전한 야외활동을 위한 「해충기피제 자동분사기」설치"], "2025|문화·교육": ["봉소루 상시개방을 위한 마당정비 사업", "주민과 함께 나누는 공간 ‘산성동 공유주방’리모델링 사", "주민자치 프로그램 시설개선 및 기자재 구입"], "2025|쉼터·공원": ["양지근린공원 야외 운동기구 캐노피 설치", "생활 속 배려 쉼의자 설치 및 주민쉼터 공간 교체", "석교동 범골공원 지붕교체"], "2025|복지·건강": ["어르신 건강체크 자동혈압측정기 설치", "어르신을 위한 스마트폰 활용 교육"]};
+const COLORS = ["#2a78d6","#1baf7a","#eda100","#eb6834","#e87ba4","#4a3aa7","#008300","#8a8880","#c4c4bc"];
+const KEYS = Object.keys(SER);
+const sv = document.getElementById("stream"), stip = document.getElementById("tip");
+const SW = 800, SH = 360, SL = 44, SR = 96, ST = 20, SB = 34;
+const spw = SW - SL - SR, sph = SH - ST - SB;
+const sx = i => SL + spw * i / (YEARS.length - 1);
+const maxTot = Math.max(...TOT);
+const sy = v => ST + sph * (1 - v / maxTot);
+// 누적 경로(스택 영역)
+let cum = YEARS.map(() => 0);
+let out = "";
+KEYS.forEach((k, ki) => {
+  const lower = cum.slice();
+  cum = cum.map((c, i) => c + SER[k][i]);
+  let path = `M ${sx(0)} ${sy(lower[0])}`;
+  for (let i = 1; i < YEARS.length; i++) {
+    const cx = (sx(i-1) + sx(i)) / 2;
+    path += ` C ${cx} ${sy(lower[i-1])}, ${cx} ${sy(lower[i])}, ${sx(i)} ${sy(lower[i])}`;
+  }
+  path += ` L ${sx(YEARS.length-1)} ${sy(cum[YEARS.length-1])}`;
+  for (let i = YEARS.length - 1; i > 0; i--) {
+    const cx = (sx(i-1) + sx(i)) / 2;
+    path += ` C ${cx} ${sy(cum[i])}, ${cx} ${sy(cum[i-1])}, ${sx(i-1)} ${sy(cum[i-1])}`;
+  }
+  path += " Z";
+  out += `<path d="${path}" fill="${COLORS[ki]}" opacity=".85" data-k="${k}"/>`;
+  const lastMid = (sy(cum[YEARS.length-1]) + sy(lower[YEARS.length-1])) / 2;
+  if (SER[k][YEARS.length-1] >= 2)
+    out += `<text x="${sx(YEARS.length-1)+8}" y="${lastMid+4}" style="fill:var(--text-secondary);font-size:11.5px;font-weight:700">${k}</text>`;
+});
+YEARS.forEach((y, i) => {
+  out += `<text x="${sx(i)}" y="${SH-SB+18}" text-anchor="middle" class="axis">${y}</text>`
+       + `<text x="${sx(i)}" y="${sy(TOT[i])-8}" text-anchor="middle" style="fill:var(--text-muted);font-size:11px">${TOT[i]}건</text>`
+       + `<rect fill="transparent" data-col="${i}" x="${sx(i)-24}" y="${ST}" width="48" height="${sph}"/>`;
+});
+sv.innerHTML = out;
+document.getElementById("slegend").innerHTML =
+  KEYS.map((k, i) => `<span><i style="background:${COLORS[i]}"></i>${k}</span>`).join("");
+sv.addEventListener("mousemove", e => {
+  const p = e.target.closest("path[data-k]");
+  if (!p) { stip.style.opacity = 0; return; }
+  const k = p.dataset.k;
+  const r = sv.getBoundingClientRect();
+  const i = Math.min(YEARS.length - 1, Math.max(0, Math.round(((e.clientX - r.left) / r.width * SW - SL) / spw * (YEARS.length - 1))));
+  const ex = (EX[YEARS[i] + "|" + k] || []).map(x => "· " + x).join("<br>");
+  stip.innerHTML = `<b>${YEARS[i]}년 ${k}</b> ${SER[k][i]}건 (${Math.round(SER[k][i]/TOT[i]*100)}%)`
+                 + (ex ? `<br><span style="color:var(--text-muted);font-size:12px">${ex}</span>` : "");
+  stip.style.left = Math.min(e.clientX + 14, innerWidth - 300) + "px";
+  stip.style.top = (e.clientY - 12) + "px";
+  stip.style.opacity = 1;
+});
+sv.addEventListener("mouseleave", () => stip.style.opacity = 0);
 </script>
 </body>
 </html>
