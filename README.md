@@ -44,6 +44,8 @@ https://djmcp.up.railway.app/all/mcp        ← 통합(자치구 교차검색 ·
 - [전국 조례 지형도](https://hippo0805.github.io/daejeon-mcp/viz/ordinance-landscape.html) — 화제 정책 10개 주제, 전국 266개 기관의 현행 조례 보유 현황
 - [주민참여예산 19년](https://hippo0805.github.io/daejeon-mcp/viz/junggu-participatory-budget.html) — 대전 중구 2007~2026, 흩어진 문서를 이어 읽은 제도의 성장기 · 연도별 선정 사업 341건 전체 목록
 - [중구 예산 20년](https://hippo0805.github.io/daejeon-mcp/viz/junggu-budget-20years.html) — 1,240억→7,230억, 성장의 대부분을 만든 복지(35%→67%)
+- [행정의 관심사 10년](https://hippo0805.github.io/daejeon-mcp/viz/junggu-keyword-trends.html) — 문서 제목 4.9만 건으로 본 코로나의 파도·재개발의 지속·AI의 급부상
+- [닿지 않는 통지](https://hippo0805.github.io/daejeon-mcp/viz/junggu-public-notice.html) — 공시송달 5,455건, 고시의 23%가 '전달 실패'의 기록
 
 ## 문서
 

@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>행정의 관심사 10년 — 대전 중구 문서 제목으로 읽기</title>
+<style>
+  :root {
+    color-scheme: light dark;
+    --surface-1: #fcfcfb; --surface-2: #f3f2ef;
+    --text-primary: #0b0b0b; --text-secondary: #52514e; --text-muted: #8a8880;
+    --series-1: #2a78d6; --grid: #e3e2dd; --border: #dedcd5; --accent: #166534;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --surface-1: #1a1a19; --surface-2: #232322;
+      --text-primary: #ffffff; --text-secondary: #c3c2b7; --text-muted: #8a897f;
+      --series-1: #3987e5; --grid: #333330; --border: #3a3936; --accent: #4ade80;
+    }
+  }
+  * { box-sizing: border-box; margin: 0; }
+  body { background: var(--surface-1); color: var(--text-primary);
+         font-family: "Apple SD Gothic Neo", Pretendard, "Noto Sans KR", sans-serif;
+         line-height: 1.6; padding: 44px 20px 90px; word-break: keep-all; }
+  .wrap { max-width: 880px; margin: 0 auto; }
+  .eyebrow { font-size: 13px; font-weight: 700; letter-spacing: .08em; color: var(--text-muted);
+             text-transform: uppercase; margin-bottom: 10px; }
+  h1 { font-size: 30px; letter-spacing: -1px; line-height: 1.25; }
+  .sub { color: var(--text-secondary); margin: 12px 0 34px; font-size: 15.5px; max-width: 64ch; }
+  .sub b { color: var(--text-primary); }
+  .grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px; }
+  .panel { background: var(--surface-2); border: 1px solid var(--border); border-radius: 12px;
+           padding: 16px 18px 8px; }
+  .panel h3 { font-size: 15px; letter-spacing: -0.3px; }
+  .panel .pk { font-size: 12px; color: var(--text-muted); margin: 2px 0 8px; }
+  .panel .pk b { color: var(--accent); }
+  svg text { font-family: inherit; }
+  .bar { fill: var(--series-1); }
+  .axis { fill: var(--text-muted); font-size: 10px; }
+  .grid-line { stroke: var(--grid); stroke-width: 1; }
+  #tip { position: fixed; pointer-events: none; background: var(--surface-1);
+         border: 1px solid var(--border); border-radius: 8px; padding: 7px 11px; font-size: 12.5px;
+         box-shadow: 0 4px 16px rgba(0,0,0,.18); opacity: 0; transition: opacity .12s; z-index: 9; }
+  .fact { border-left: 3px solid var(--accent); background: var(--surface-2);
+          padding: 14px 18px; border-radius: 0 10px 10px 0; margin: 28px 0; font-size: 15px; }
+  .fact b { color: var(--accent); }
+  .method { font-size: 13px; color: var(--text-muted); margin-top: 34px; line-height: 1.7;
+            border-top: 1px solid var(--border); padding-top: 18px; }
+  .cta { margin-top: 30px; background: var(--surface-2); border: 1px solid var(--border);
+         border-radius: 12px; padding: 20px 22px; }
+  .cta b { display: block; margin-bottom: 6px; font-size: 15.5px; }
+  .cta code { background: var(--surface-1); border: 1px solid var(--border); border-radius: 6px;
+              padding: 2px 8px; font-size: 12.5px; }
+  .cta .q { color: var(--text-secondary); font-size: 13.5px; margin-top: 8px; }
+  a { color: var(--series-1); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="eyebrow">대전 행정정보 MCP · 데이터 스토리 #4 · 대전 중구</div>
+  <h1>행정의 관심사 10년 —<br>문서 제목이 말해주는 것</h1>
+  <p class="sub">구청이 발행한 공식 문서 <b>4만 9천여 건(2017~2026)</b>의 제목을 세면, 행정이
+  무엇에 몰두해 왔는지가 보입니다. 주제별 등장 빈도(해당 연도 문서 1,000건당)를 나란히
+  놓았습니다 — <b>코로나의 파도, 재개발의 지속, AI의 급부상</b>.</p>
+
+  <div class="grid2" id="panels"></div>
+
+  <div class="fact">
+    세 가지가 눈에 띕니다. ① <b>재개발·재건축</b>은 10년 내내 최상위 관심사(총 466건) —
+    원도심 중구의 정체성 그 자체. ② <b>코로나</b>는 2020~21년 문서 1,000건당 12~13건까지
+    치솟았다가 3년 만에 소멸 — 위기 대응의 궤적이 그대로 남음. ③ <b>인공지능(AI)</b>은
+    2026년 들어 1,000건당 4건으로 급등 — 폭염·고독사와 함께 "다음 10년의 키워드"가 이미
+    문서에 나타나고 있습니다.
+  </div>
+
+  <div class="cta">
+    <b>다른 키워드도 직접 추적할 수 있습니다</b>
+    AI 클라이언트(Claude 등)의 MCP 설정에 <code>https://djmcp.up.railway.app/junggu/mcp</code> 를
+    등록하고 topic_timeline 도구로 아무 주제나 물어보세요 — 무료·가입 없음.
+    <div class="q">예: "중구에서 '경로당' 관련 문서가 연도별로 얼마나 나왔어? 담당 부서는 어디야?" ·
+    연결 가이드: <a href="https://github.com/hippo0805/daejeon-mcp">github.com/hippo0805/daejeon-mcp</a></div>
+  </div>
+
+  <p class="method"><b>방법</b> — 대전 중구 공개 문서 중 제목에 각 키워드가 포함된 건수를 해당
+  연도 전체 문서 수로 나눠 1,000건당 비율로 정규화했습니다(연도별 공개량 차이 보정). 분석
+  구간을 2017~2026년으로 제한한 이유: 2016년 이전은 공개 문서량(연 138~946건)과 게시판
+  구성이 현재와 달라 비율 비교가 왜곡되기 때문입니다 — 구간 선택도 방법의 일부로 공개합니다.
+  제목 기준 집계이므로 본문에만 언급된 문서는 포함되지 않습니다(보수적 하한). 원 출처: 중구청
+  홈페이지(공공누리). 문서·방법론: CC BY 4.0.</p>
+</div>
+<div id="tip"></div>
+
+<script>
+const YEARS = ["2017","2018","2019","2020","2021","2022","2023","2024","2025","2026"];
+const S = {
+ "재개발·재건축": {r:[1.16,6.67,3.52,11.27,10.93,13.38,10.06,12.64,8.0,8.92], n:[4,26,12,63,60,62,58,77,54,38], pk:"10년 내내 최상위 — 총 466건"},
+ "코로나":       {r:[0,0,0,11.99,13.3,6.26,1.56,0.66,0.44,0], n:[0,0,0,67,73,29,9,4,3,0], pk:"2020~21 파도 후 소멸"},
+ "청년":         {r:[0.87,1.03,0.59,0.36,1.09,4.31,6.94,3.45,3.41,4.69], n:[3,4,2,2,6,20,40,21,23,20], pk:"2022년부터 주류 의제로"},
+ "인공지능·AI":  {r:[0.87,0,0,0.18,0,0.65,0.52,1.15,1.33,3.99], n:[3,0,0,1,0,3,3,7,9,17], pk:"2026년 급등 — 1,000건당 4건"},
+ "미세먼지":     {r:[1.45,2.31,2.94,2.5,0,0.86,2.25,0,0.59,0], n:[5,9,10,14,0,4,13,0,4,0], pk:"2019~20 정점 후 잦아듦"},
+ "폭염":         {r:[0,2.82,0.88,0.18,0.36,0,0.87,1.48,1.78,2.82], n:[0,11,3,1,2,0,5,9,12,12], pk:"2024년부터 다시 상승"},
+ "고독사·1인가구":{r:[0,0,0,0,0.73,0,0.52,0.98,1.19,0.23], n:[0,0,0,0,4,0,3,6,8,1], pk:"2024~25 새 의제로 부상"},
+ "저출산·출산지원":{r:[0,0.26,0,1.25,0.18,0,0.35,0.16,0.44,0.23], n:[0,1,0,7,1,0,2,1,3,1], pk:"2020년 지원 확대기 정점"},
+};
+const tip = document.getElementById("tip");
+const holder = document.getElementById("panels");
+const MAXR = 14;
+for (const [name, d] of Object.entries(S)) {
+  const W = 300, H = 130, L = 26, R = 6, T = 8, B = 22;
+  const pw = W - L - R, ph = H - T - B, bw = pw / YEARS.length;
+  let s = "";
+  for (const g of [0, 7, 14]) {
+    const y = T + ph * (1 - g / MAXR);
+    s += `<line class="grid-line" x1="${L}" y1="${y}" x2="${W-R}" y2="${y}"/>`
+       + `<text class="axis" x="${L-4}" y="${y+3}" text-anchor="end">${g}</text>`;
+  }
+  YEARS.forEach((yr, i) => {
+    const v = d.r[i];
+    if (v > 0) s += `<rect class="bar" data-k="${name}" data-i="${i}" x="${L+i*bw+bw*0.2}" y="${T+ph*(1-v/MAXR)}" width="${bw*0.6}" height="${ph*v/MAXR}" rx="2"/>`;
+    if (i % 3 === 0 || i === 9) s += `<text class="axis" x="${L+i*bw+bw/2}" y="${H-B+14}" text-anchor="middle">${yr.slice(2)}</text>`;
+  });
+  const div = document.createElement("div");
+  div.className = "panel";
+  div.innerHTML = `<h3>${name}</h3><div class="pk"><b>${d.pk}</b></div>
+    <svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="${name} 연도별 빈도"></svg>`;
+  div.querySelector("svg").innerHTML = s;
+  holder.appendChild(div);
+}
+document.addEventListener("mousemove", e => {
+  const t = e.target.closest(".bar");
+  if (!t) { tip.style.opacity = 0; return; }
+  const d = S[t.dataset.k], i = +t.dataset.i;
+  tip.innerHTML = `<b>${YEARS[i]}년</b> ${t.dataset.k}<br>1,000건당 ${d.r[i]} · 실제 ${d.n[i]}건`;
+  tip.style.left = Math.min(e.clientX + 14, innerWidth - 210) + "px";
+  tip.style.top = (e.clientY - 12) + "px";
+  tip.style.opacity = 1;
+});
+</script>
+</body>
+</html>

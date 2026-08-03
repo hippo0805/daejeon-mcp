@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>닿지 않는 통지 — 공시송달 5,455건의 기록</title>
+<style>
+  :root {
+    color-scheme: light dark;
+    --surface-1: #fcfcfb; --surface-2: #f3f2ef;
+    --text-primary: #0b0b0b; --text-secondary: #52514e; --text-muted: #8a8880;
+    --series-1: #2a78d6; --grid: #e3e2dd; --border: #dedcd5; --accent: #166534;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --surface-1: #1a1a19; --surface-2: #232322;
+      --text-primary: #ffffff; --text-secondary: #c3c2b7; --text-muted: #8a897f;
+      --series-1: #3987e5; --grid: #333330; --border: #3a3936; --accent: #4ade80;
+    }
+  }
+  * { box-sizing: border-box; margin: 0; }
+  body { background: var(--surface-1); color: var(--text-primary);
+         font-family: "Apple SD Gothic Neo", Pretendard, "Noto Sans KR", sans-serif;
+         line-height: 1.6; padding: 44px 20px 90px; word-break: keep-all; }
+  .wrap { max-width: 860px; margin: 0 auto; }
+  .eyebrow { font-size: 13px; font-weight: 700; letter-spacing: .08em; color: var(--text-muted);
+             text-transform: uppercase; margin-bottom: 10px; }
+  h1 { font-size: 30px; letter-spacing: -1px; line-height: 1.25; }
+  .sub { color: var(--text-secondary); margin: 12px 0 30px; font-size: 15.5px; max-width: 64ch; }
+  .sub b { color: var(--text-primary); }
+  .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 10px;
+           margin-bottom: 36px; }
+  .tile { background: var(--surface-2); border: 1px solid var(--border); border-radius: 10px;
+          padding: 16px 18px 13px; }
+  .tile .v { font-size: 27px; font-weight: 800; letter-spacing: -1px; font-variant-numeric: tabular-nums; }
+  .tile .v small { font-size: 14px; font-weight: 500; color: var(--text-secondary); }
+  .tile .k { font-size: 13px; color: var(--text-secondary); margin-top: 3px; }
+  h2 { font-size: 18px; margin: 40px 0 6px; letter-spacing: -0.3px; }
+  .chart-sub { font-size: 13px; color: var(--text-muted); margin-bottom: 16px; }
+  .chart-card { background: var(--surface-2); border: 1px solid var(--border); border-radius: 12px;
+                padding: 22px 24px 12px; overflow-x: auto; }
+  svg text { font-family: inherit; }
+  .bar { fill: var(--series-1); }
+  .grid-line { stroke: var(--grid); stroke-width: 1; }
+  .axis { fill: var(--text-muted); font-size: 11px; }
+  .lbl { fill: var(--text-secondary); font-size: 12.5px; }
+  .val { fill: var(--text-primary); font-size: 12.5px; font-variant-numeric: tabular-nums; }
+  #tip { position: fixed; pointer-events: none; background: var(--surface-1);
+         border: 1px solid var(--border); border-radius: 8px; padding: 8px 12px; font-size: 13px;
+         box-shadow: 0 4px 16px rgba(0,0,0,.18); opacity: 0; transition: opacity .12s; z-index: 9; }
+  .fact { border-left: 3px solid var(--accent); background: var(--surface-2);
+          padding: 14px 18px; border-radius: 0 10px 10px 0; margin: 26px 0; font-size: 15px; }
+  .fact b { color: var(--accent); }
+  .method { font-size: 13px; color: var(--text-muted); margin-top: 34px; line-height: 1.7;
+            border-top: 1px solid var(--border); padding-top: 18px; }
+  .cta { margin-top: 30px; background: var(--surface-2); border: 1px solid var(--border);
+         border-radius: 12px; padding: 20px 22px; }
+  .cta b { display: block; margin-bottom: 6px; font-size: 15.5px; }
+  .cta code { background: var(--surface-1); border: 1px solid var(--border); border-radius: 6px;
+              padding: 2px 8px; font-size: 12.5px; }
+  .cta .q { color: var(--text-secondary); font-size: 13.5px; margin-top: 8px; }
+  a { color: var(--series-1); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="eyebrow">대전 행정정보 MCP · 데이터 스토리 #5 · 대전 중구</div>
+  <h1>닿지 않는 통지 —<br>공시송달 5,455건의 기록</h1>
+  <p class="sub">우편이 반송되고, 주소지에 사람이 없을 때 — 행정은 마지막 수단으로 게시판에
+  공고합니다. 이것이 <b>공시송달</b>입니다. 중구 고시공고 23,899건 중 <b>23%가 공시송달</b> —
+  숫자 뒤에는 연락이 닿지 않는 사람들의 시대가 있습니다.</p>
+
+  <div class="tiles">
+    <div class="tile"><div class="v">5,455<small>건</small></div><div class="k">공시송달 공고 (전체 고시의 23%)</div></div>
+    <div class="tile"><div class="v">791<small>건</small></div><div class="k">2025년 한 해 — 역대 최다</div></div>
+    <div class="tile"><div class="v">+67<small>%</small></div><div class="k">2017년(474건) 대비 2025년 증가</div></div>
+  </div>
+
+  <h2>연도별 추이 — 꾸준히 늘고 있다</h2>
+  <div class="chart-sub">제목에 '공시송달'이 포함된 고시·공고 · 2016년 이전은 공개 문서량 자체가 적어 회색 표시</div>
+  <div class="chart-card">
+    <svg id="chart" width="800" height="320" viewBox="0 0 800 320" role="img"
+         aria-label="연도별 공시송달 공고 건수 막대 차트"></svg>
+  </div>
+
+  <h2>무엇을 전하려 했나 — 제목 속 사유</h2>
+  <div class="chart-sub">제목 언급 기준(한 공고가 여러 유형에 해당될 수 있음) · 건수</div>
+  <div class="chart-card">
+    <svg id="chart2" width="800" height="330" viewBox="0 0 800 330" role="img"
+         aria-label="공시송달 사유별 건수 가로 막대"></svg>
+  </div>
+
+  <div class="fact">
+    대부분은 <b>돈에 관한 통지</b>입니다 — 과태료(2,305건 언급)·세금 독촉(965)·압류(729)·
+    부과 통지(699). 자동차 등록말소(203), 토지 수용재결(48)도 있습니다. 공시송달이 늘어난다는
+    것은 <b>행정이 닿지 못하는 사람이 늘고 있다</b>는 뜻이기도 합니다 — 1인 가구와 주거 이동의
+    시대, 게시판 공고 5,455건이 남긴 그림자입니다.
+  </div>
+
+  <div class="cta">
+    <b>이 공고들, 직접 검색할 수 있습니다</b>
+    AI 클라이언트(Claude 등)의 MCP 설정에 <code>https://djmcp.up.railway.app/junggu/mcp</code> 를
+    등록하면 5,455건의 공시송달을 포함한 고시공고 전체를 근거와 함께 질의할 수 있습니다.
+    <div class="q">예: "2025년 자동차 관련 공시송달 공고 중 운행정지 사전통지를 찾아줘" ·
+    연결 가이드: <a href="https://github.com/hippo0805/daejeon-mcp">github.com/hippo0805/daejeon-mcp</a></div>
+  </div>
+
+  <p class="method"><b>방법</b> — 대전 중구 공개 문서 중 제목에 '공시송달'이 포함된 5,455건을
+  집계했습니다. 사유별 분류는 제목 키워드 기준이며 한 공고가 복수 유형에 해당할 수 있어 합계가
+  총건수와 다릅니다(중복 명시). 2016년 이전 급감 구간은 공시송달이 적었던 게 아니라 <b>당시
+  온라인 공개 문서량 자체가 적었기 때문</b>일 수 있어 회색으로 구분했습니다 — 추이 해석은
+  2017년 이후 구간을 기준으로 하십시오. 원 출처: 중구청 홈페이지(공공누리). 문서·방법론: CC BY 4.0.</p>
+</div>
+<div id="tip"></div>
+
+<script>
+const BY = {2010:1,2011:18,2012:28,2013:18,2014:8,2015:4,2016:10,2017:474,2018:595,2019:534,
+            2020:449,2021:428,2022:497,2023:628,2024:682,2025:791,2026:514};
+const years = Object.keys(BY).map(Number);
+const maxV = 800;
+const svg = document.getElementById("chart"), tip = document.getElementById("tip");
+const L = 48, R = 12, T = 16, B = 40, W = 800, H = 320;
+const pw = W - L - R, ph = H - T - B, bw = pw / years.length;
+const x = i => L + i * bw, y = v => T + ph * (1 - v / maxV);
+let s = "";
+for (const g of [0, 200, 400, 600, 800]) {
+  s += `<line class="grid-line" x1="${L}" y1="${y(g)}" x2="${W-R}" y2="${y(g)}"/>`
+     + `<text class="axis" x="${L-8}" y="${y(g)+4}" text-anchor="end">${g}</text>`;
+}
+years.forEach((yr, i) => {
+  const v = BY[yr];
+  const fill = yr <= 2016 ? "var(--grid)" : "var(--series-1)";
+  if (v > 0) s += `<rect fill="${fill}" data-y="${yr}" class="bar-hit" x="${x(i)+bw*0.18}" y="${y(v)}" width="${bw*0.64}" height="${Math.max(2, ph*v/maxV)}" rx="3"/>`;
+  if (yr % 2 === 0) s += `<text class="axis" x="${x(i)+bw/2}" y="${H-B+18}" text-anchor="middle">${String(yr).slice(2)}</text>`;
+});
+svg.innerHTML = s;
+svg.addEventListener("mousemove", e => {
+  const t = e.target.closest(".bar-hit");
+  if (!t) { tip.style.opacity = 0; return; }
+  tip.innerHTML = `<b>${t.dataset.y}년</b> · 공시송달 ${BY[t.dataset.y].toLocaleString()}건`;
+  tip.style.left = Math.min(e.clientX + 14, innerWidth - 190) + "px";
+  tip.style.top = (e.clientY - 12) + "px";
+  tip.style.opacity = 1;
+});
+svg.addEventListener("mouseleave", () => tip.style.opacity = 0);
+
+const cats = [["과태료",2305],["세금 독촉",965],["압류",729],["부과 통지",699],["체납",492],
+              ["차량 등록말소",203],["토지 수용재결",48],["차량 운행정지",28]];
+const c2 = document.getElementById("chart2");
+const L2 = 120, R2 = 76, T2 = 14, rowH = 37, barH = 15, maxC = 2400;
+const pw2 = W - L2 - R2;
+const x2 = v => L2 + pw2 * v / maxC;
+let s2 = "";
+for (const g of [0, 800, 1600, 2400]) {
+  s2 += `<line class="grid-line" x1="${x2(g)}" y1="${T2-4}" x2="${x2(g)}" y2="${T2 + cats.length*rowH}"/>`
+      + `<text class="axis" x="${x2(g)}" y="${T2 + cats.length*rowH + 18}" text-anchor="middle">${g.toLocaleString()}</text>`;
+}
+cats.forEach(([nm, v], i) => {
+  const yy = T2 + i*rowH + (rowH - barH)/2;
+  s2 += `<text class="lbl" x="${L2-10}" y="${yy + barH - 2}" text-anchor="end">${nm}</text>`
+      + `<rect class="bar" x="${L2}" y="${yy}" width="${Math.max(3, pw2*v/maxC)}" height="${barH}" rx="4"/>`
+      + `<text class="val" x="${x2(v)+8}" y="${yy + barH - 2}">${v.toLocaleString()}</text>`;
+});
+c2.innerHTML = s2;
+</script>
+</body>
+</html>
